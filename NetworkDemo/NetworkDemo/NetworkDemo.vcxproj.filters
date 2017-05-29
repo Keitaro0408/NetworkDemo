@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{541bbda0-d322-4103-b6cf-44ab3cef773c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager">
+      <UniqueIdentifier>{47da9c4f-e23a-46ab-8d3e-45f3c59f3589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager\SceneBase">
+      <UniqueIdentifier>{dab00163-9362-4142-a21a-8b110a3ed863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager\SceneFactory">
+      <UniqueIdentifier>{1887b004-6419-43c6-9615-cfca831e0e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\GameScene">
+      <UniqueIdentifier>{5a59e61c-ac0a-4294-92a9-43623120653f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\TitleScene">
+      <UniqueIdentifier>{3f81563e-1e11-4235-83c2-a6e56e05dccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\XInput">
+      <UniqueIdentifier>{56f83e3e-211c-4164-8ccc-219c03f869ba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main\Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneManager.cpp">
+      <Filter>Main\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\SceneBase.cpp">
+      <Filter>Main\SceneManager\SceneBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneFactory\SceneFactory.cpp">
+      <Filter>Main\SceneManager\SceneFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\GameScene\GameScene.cpp">
+      <Filter>Main\SceneManager\SceneBase\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\TitleScene\TitleScene.cpp">
+      <Filter>Main\SceneManager\SceneBase\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\XInput\XInput.cpp">
+      <Filter>Main\XInput</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main\SceneManager\SceneManager.h">
+      <Filter>Main\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\SceneBase.h">
+      <Filter>Main\SceneManager\SceneBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneFactory\SceneFactory.h">
+      <Filter>Main\SceneManager\SceneFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\GameScene\GameScene.h">
+      <Filter>Main\SceneManager\SceneBase\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\TitleScene\TitleScene.h">
+      <Filter>Main\SceneManager\SceneBase\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\XInput\XInput.h">
+      <Filter>Main\XInput</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
