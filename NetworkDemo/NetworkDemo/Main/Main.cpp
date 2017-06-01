@@ -14,7 +14,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 	//Window表示
 	SINGLETON_CREATE(Lib::Window);
-	SINGLETON_INSTANCE(Lib::Window).DispWindow(hInst, WINDOW_WIDTH, WINDOW_HEIGHT, "test", &WindowProc);
+	SINGLETON_INSTANCE(Lib::Window).DispWindow(hInst, WINDOW_WIDTH, WINDOW_HEIGHT, "NetworkDemo", &WindowProc);
 	const HWND hWnd = SINGLETON_INSTANCE(Lib::Window).GetWindowHandle();
 
 	SINGLETON_CREATE(Lib::DX11Manager);

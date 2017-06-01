@@ -7,7 +7,9 @@
 #define GAMESCENE_H
 #include <memory>
 #include "..\SceneBase.h"
+#include "Vertex2D\Vertex2D.h"
 
+class UdpThread;
 class ObjectManager;
 
 /**
@@ -42,6 +44,10 @@ private:
 	void operator=(const GameScene&);
 
 	ObjectManager* m_pObjectManager;
+	UdpThread*	   m_pUdpThread;
+	Lib::Vertex2D* m_pVertex;
+	int			   m_TextureIndex;
+
 };
 
 

@@ -26,6 +26,9 @@
     <Filter Include="Main\XInput">
       <UniqueIdentifier>{56f83e3e-211c-4164-8ccc-219c03f869ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\GameScene\UdpThread">
+      <UniqueIdentifier>{717d16d5-d868-494c-8fc8-41207248f861}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main\Main.cpp">
@@ -49,6 +52,9 @@
     <ClCompile Include="Main\XInput\XInput.cpp">
       <Filter>Main\XInput</Filter>
     </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.cpp">
+      <Filter>Main\SceneManager\SceneBase\GameScene\UdpThread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main\SceneManager\SceneManager.h">
@@ -68,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="Main\XInput\XInput.h">
       <Filter>Main\XInput</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.h">
+      <Filter>Main\SceneManager\SceneBase\GameScene\UdpThread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
