@@ -56,8 +56,8 @@ SceneBase(SCENE_GAME)
 		// Lib::TextureManager Init end
 	}
 
-	//m_pUdpThread = new UdpThread("49.250.217.198", 12345);
-	m_pUdpThread = new UdpThread("192.168.12.33", 12345);
+	m_pUdpThread = new UdpThread("49.250.217.198", 12345);
+	//m_pUdpThread = new UdpThread("192.168.12.33", 12345);
 	g_Pos = D3DXVECTOR2(100, 100);
 	SINGLETON_INSTANCE(Lib::TextureManager).Load("Resource/test.jpg", &m_TextureIndex);
 	m_pVertex = new Lib::Vertex2D(
@@ -127,6 +127,26 @@ SceneBase::SceneID GameScene::Update()
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_A);
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_S);
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_D);
+	
+	g_Pos.x = m_pUdpThread->GetRecvData().PlayerData.PosX;
+	g_Pos.y = m_pUdpThread->GetRecvData().PlayerData.PosY;
+
+	if (SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_D] == Lib::KEY_ON)
+	{
+		g_Pos.x += 4.f;
+	}
+	if (SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_A] == Lib::KEY_ON)
+	{
+		g_Pos.x -= 4.f;
+	}
+	if (SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_W] == Lib::KEY_ON)
+	{
+		g_Pos.y -= 4.f;
+	}
+	if (SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_S] == Lib::KEY_ON)
+	{
+		g_Pos.y += 4.f;
+	}
 
 	SINGLETON_INSTANCE(Lib::XInput).Update(Lib::GAMEPAD1);
 	return m_SceneID;
@@ -136,8 +156,6 @@ void GameScene::Draw()
 {
 	SINGLETON_INSTANCE(Lib::DX11Manager).SetDepthStencilTest(false);
 	SINGLETON_INSTANCE(Lib::DX11Manager).BeginScene();
-	g_Pos.x = m_pUdpThread->GetRecvData().PlayerData.PosX;
-	g_Pos.y = m_pUdpThread->GetRecvData().PlayerData.PosY;
 
 	m_pVertex->Draw(&D3DXVECTOR2(g_Pos.x + 100, g_Pos.y + 100), g_UV);
 	SINGLETON_INSTANCE(Lib::DX11Manager).EndScene();
