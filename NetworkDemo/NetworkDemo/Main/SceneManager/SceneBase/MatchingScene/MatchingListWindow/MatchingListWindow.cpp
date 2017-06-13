@@ -55,7 +55,15 @@ void MatchingListWindow::MainLoop()
 	while (!m_GameIsEnd)
 	{
 		memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
-		sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
+		sendto(m_Socket, reinterpret_cast<char*>(&m_PlayerData), sizeof(m_PlayerData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 
+		int selectResult = select(m_Socket + 1, &m_Fds, NULL, NULL, &m_TimeOut);
+
+		if (FD_ISSET(m_Socket, &m_Fds))
+		{
+			/* sock1からデータを受信して表示します */
+			int len = (int)sizeof(sockaddr_in);
+			recvfrom(m_Socket, reinterpret_cast<char*>(&m_PlayerData), sizeof(m_PlayerData), 0, (sockaddr*)&m_ServerAdd, &len);
+		}
 	}
 }

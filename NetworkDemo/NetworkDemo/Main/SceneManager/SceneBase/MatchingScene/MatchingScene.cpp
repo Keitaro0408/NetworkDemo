@@ -14,6 +14,7 @@ MatchingScene::~MatchingScene()
 
 MatchingScene::SceneID MatchingScene::Update()
 {
+	return m_SceneID;
 }
 
 void MatchingScene::Draw()

@@ -7,11 +7,14 @@
 #define WINDOW_H
 #include <windows.h>
 #include "..\Singleton.h"
+#define WINAPI_ENTRY int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 
 namespace Lib
 {
 	/**
 	 * ウィンドウの生成をしてくれるクラス
+	 *
+	 * ライブラリが自動で生成と解放をしてくれる
 	 */
 	class Window
 	{
@@ -27,35 +30,41 @@ namespace Lib
 			return m_hInstance;
 		}
 
+		inline RECT GetWindowSize()
+		{
+			return m_WindowSize;
+		}
+
 		/**
 		 * ウィンドウの生成
-		 * @param[in] _hInstance インスタンスハンドル
 		 * @param[in] _width ウィンドウの横幅
 		 * @param[in] _height ウィンドウの縦幅
 		 * @param[in] _windowName ウィンドウの名前
-		 * @param[in] _wndProc ウィンドウプロシージャの関数ポインタ
 		 * @return 成功したらS_OK
 		 */
-		HRESULT DispWindow(HINSTANCE _hInstance, INT _width, INT _height, LPCTSTR _windowName,LRESULT CALLBACK _wndProc(HWND, UINT, WPARAM, LPARAM));
+		HRESULT DispWindow(INT _width, INT _height, LPCTSTR _windowName);
 
 		/**
 		 * ウィンドウの生成(アイコンあり)
-		 * @param[in] _hInstance インスタンスハンドル
 		 * @param[in] _width ウィンドウの横幅
 		 * @param[in] _height ウィンドウの縦幅
 		 * @param[in] _windowName ウィンドウの名前
 		 * @param[in] _iconName アイコンのパス
-		 * @param[in] _wndProc ウィンドウプロシージャの関数ポインタ
 		 * @return 成功したらS_OK
 		 */
-		HRESULT DispWindow(HINSTANCE _hInstance, INT _width, INT _height, LPCTSTR _windowName, LPCTSTR _iconName, LRESULT CALLBACK _wndProc(HWND, UINT, WPARAM, LPARAM));
+		HRESULT DispWindow(INT _width, INT _height, LPCTSTR _windowName, LPCTSTR _iconName);
+
+		void ChangeWindowSize(int _width,int _hight);
 
 	private:
 		Window() :
 			m_hInstance(NULL),
-			m_hWnd(NULL){};
+			m_hWnd(NULL)
+		{
+			m_hInstance = GetModuleHandle(NULL);
+		};
 		~Window(){};
-
+		RECT	m_WindowSize;
 		HINSTANCE m_hInstance;
 		HWND m_hWnd;
 

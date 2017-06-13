@@ -1,83 +1,42 @@
-﻿#include <crtdbg.h>
+﻿#include "SceneManager/SceneManager.h"
+#include "Application/ApplicationBase.h"
 #include "Window/Window.h"
-#include "SceneManager/SceneManager.h"
-#include "Dx11/DX11Manager.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 
-LRESULT CALLBACK WindowProc(HWND _hwnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
-
-int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
+class App : Lib::ApplicationBase
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+public:
+	App() = default;
+	~App() = default;
 
-	//Window表示
-	SINGLETON_CREATE(Lib::Window);
-	SINGLETON_INSTANCE(Lib::Window).DispWindow(hInst, WINDOW_WIDTH, WINDOW_HEIGHT, "NetworkDemo", &WindowProc);
-	const HWND hWnd = SINGLETON_INSTANCE(Lib::Window).GetWindowHandle();
-
-	SINGLETON_CREATE(Lib::DX11Manager);
-	SINGLETON_INSTANCE(Lib::DX11Manager).Init(hWnd);
-
-	SceneManager* sceneManager = new SceneManager(SINGLETON_INSTANCE(Lib::Window).GetWindowHandle());
-
-	MSG Msg;
-	ZeroMemory(&Msg, sizeof(Msg));
-	while (Msg.message != WM_QUIT)
+	void Init()
 	{
-		if (PeekMessage(&Msg, NULL, 0U, 0U, PM_REMOVE))
-		{
-			TranslateMessage(&Msg);
-			DispatchMessage(&Msg);
-		}
-		else
-		{
-			if (sceneManager->Run())
-			{
-				break;
-			}
-		}
-	}
+		SINGLETON_INSTANCE(Lib::Window).DispWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TEXT("NetworkDemo"));
+		InitLib(SINGLETON_INSTANCE(Lib::Window).GetWindowHandle());
+		m_pSceneManager = new SceneManager(SINGLETON_INSTANCE(Lib::Window).GetWindowHandle());
+	};
 
-	delete sceneManager;
-
-	SINGLETON_INSTANCE(Lib::DX11Manager).Release();
-	SINGLETON_DELETE(Lib::DX11Manager);
-
-	SINGLETON_DELETE(Lib::Window);
-
-	return (INT)Msg.wParam;
-}
-
-
-LRESULT CALLBACK WindowProc(HWND _hwnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
-{
-	switch (_message)
+	void Release()
 	{
-	case WM_CLOSE:
-		if (MessageBox(_hwnd, TEXT("終わりますか？"), TEXT("終了"), MB_YESNO | MB_ICONQUESTION) == IDYES)
+		delete m_pSceneManager;
+		m_pSceneManager = NULL;
+		ReleaseLib();
+	};
+
+	bool MainLoop()
+	{
+		if (m_pSceneManager->Run())
 		{
-			DestroyWindow(_hwnd);
+			return true;
 		}
-		break;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
-		break;
-	case WM_KEYDOWN:
-		switch (static_cast<CHAR>(_wParam))
-		{
-		case VK_ESCAPE:
-			if (MessageBox(_hwnd, TEXT("終わりますか？"), TEXT("終了"), MB_YESNO | MB_ICONQUESTION) == IDYES)
-			{
-				DestroyWindow(_hwnd);
-			}
-			break;
-		}
-		break;
-	default: 
-		return DefWindowProc(_hwnd, _message, _wParam, _lParam);
-	}
-	return 0;
-}
+		return false;
+	};
+
+private:
+	SceneManager* m_pSceneManager;
+
+};
+
+App app;

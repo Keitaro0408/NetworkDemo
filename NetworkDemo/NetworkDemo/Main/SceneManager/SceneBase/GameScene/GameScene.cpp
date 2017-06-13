@@ -22,49 +22,23 @@ namespace
 GameScene::GameScene() :
 SceneBase(SCENE_GAME)
 {
-	{
-		const HWND hWnd = SINGLETON_INSTANCE(Lib::Window).GetWindowHandle();
-
-		// Lib::DSoundManager Init
-		SINGLETON_CREATE(Lib::DSoundManager);
-		SINGLETON_INSTANCE(Lib::DSoundManager).Init(hWnd);
-		// Lib::DSoundManager Init end
-
-		SINGLETON_CREATE(Lib::DXInputDevice);
-
-		// InputDevice関係
-		SINGLETON_CREATE(Lib::DXInputDevice);
-		SINGLETON_INSTANCE(Lib::DXInputDevice).Init(hWnd);
-
-		SINGLETON_CREATE(Lib::MouseDevice);
-		SINGLETON_INSTANCE(Lib::MouseDevice).Init(
-			SINGLETON_INSTANCE(Lib::DXInputDevice).GetInputDevice(), hWnd);
-
-		SINGLETON_CREATE(Lib::KeyDevice);
-		SINGLETON_INSTANCE(Lib::KeyDevice).Init(
-			SINGLETON_INSTANCE(Lib::DXInputDevice).GetInputDevice(), hWnd);
-
-		SINGLETON_CREATE(Lib::XInput);
-	}
-
-	{
-		ID3D11Device* const pDevice = SINGLETON_INSTANCE(Lib::DX11Manager).GetDevice();
-
-		// Lib::TextureManager Init
-		SINGLETON_CREATE(Lib::TextureManager);
-		SINGLETON_INSTANCE(Lib::TextureManager).Init(pDevice);
-		// Lib::TextureManager Init end
-	}
-
 	//m_pUdpThread = new UdpThread("49.250.217.198", 12345);
 	//m_pUdpThread = new UdpThread("192.168.12.48", 12345);
 	g_Pos = D3DXVECTOR2(100, 100);
+	unsigned long var = inet_addr("49.250.217.198");
+	unsigned long test = var;
+
+	test &= 0x00ff;
+	test = var;
+
+	test = test >> 8;
+	test &= 0x00ff;
 
 	SINGLETON_INSTANCE(Lib::TextureManager).Load("Resource/test.jpg", &m_TextureIndex);
 	m_pVertex = new Lib::Vertex2D(
 		SINGLETON_INSTANCE(Lib::DX11Manager).GetDevice(),
 		SINGLETON_INSTANCE(Lib::DX11Manager).GetDeviceContext(),
-		SINGLETON_INSTANCE(Lib::Window).GetWindowHandle());
+		SINGLETON_INSTANCE(Lib::Window).GetWindowSize());
 
 	g_UV[0].x = 0.f;
 	g_UV[0].y = 0.f;

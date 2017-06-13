@@ -5,6 +5,7 @@
  */
 #ifndef MATCHINGLISTWINDOW_H
 #define MATCHINGLISTWINDOW_H
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <string>
 #include <thread>
 #include <winsock2.h>
@@ -24,7 +25,15 @@ public:
 	void MainLoop();
 
 private:
-	std::string  m_playerData;
+	struct PLAYER_DATA
+	{
+		int32_t	Id;
+		bool IsLoadMap;
+		bool IsJoin;
+	};
+
+	PLAYER_DATA  m_PlayerData;
+
 	WSADATA		 m_WsaData;
 	SOCKET		 m_Socket;
 	sockaddr_in  m_ServerAdd;
