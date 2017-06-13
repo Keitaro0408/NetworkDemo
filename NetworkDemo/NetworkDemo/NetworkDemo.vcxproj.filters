@@ -26,6 +26,12 @@
     <Filter Include="Main\XInput">
       <UniqueIdentifier>{56f83e3e-211c-4164-8ccc-219c03f869ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\MatchingScene">
+      <UniqueIdentifier>{f5cd3e31-67f6-4da5-b753-206d5ebb370f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow">
+      <UniqueIdentifier>{09eeb275-79cb-4b06-9dcd-a21be960b6f4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Main\SceneManager\SceneBase\GameScene\UdpThread">
       <UniqueIdentifier>{717d16d5-d868-494c-8fc8-41207248f861}</UniqueIdentifier>
     </Filter>
@@ -55,6 +61,12 @@
     <ClCompile Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.cpp">
       <Filter>Main\SceneManager\SceneBase\GameScene\UdpThread</Filter>
     </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\MatchingScene\MatchingScene.cpp">
+      <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow\MatchingListWindow.cpp">
+      <Filter>Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main\SceneManager\SceneManager.h">
@@ -77,6 +89,12 @@
     </ClInclude>
     <ClInclude Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.h">
       <Filter>Main\SceneManager\SceneBase\GameScene\UdpThread</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\MatchingScene\MatchingScene.h">
+      <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow\MatchingListWindow.h">
+      <Filter>Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

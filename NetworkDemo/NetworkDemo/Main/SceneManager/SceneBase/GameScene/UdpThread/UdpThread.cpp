@@ -13,7 +13,8 @@ namespace
 };
 
 UdpThread::UdpThread(LPCTSTR _ip, int _port) :
-m_GameIsEnd(false)
+m_GameIsEnd(false),
+m_IsUpdate(false)
 {
 	if (WSAStartup(MAKEWORD(2, 0), &m_WsaData) != 0)
 	{
@@ -77,14 +78,6 @@ void UdpThread::MainLoop()
 			m_SendData.KeyCommand[KEY_RIGHT] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_D];
 			m_SendData.KeyCommand[KEY_DOWN]  = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_S];
 
-			//m_SendData.KeyCommand[KEY_LEFT] = Lib::KEY_ON;
-
-			if (m_SendData.KeyCommand[KEY_LEFT] == Lib::KEY_ON)
-			{
-				int var = 0;
-				var++;
-			}
-
 			Send();
 			Recv();
 			SyncOld = SyncNow;
@@ -116,5 +109,6 @@ void UdpThread::Recv()
 	{
 		/* sock1からデータを受信して表示します */
 		recvfrom(m_Socket, reinterpret_cast<char*>(&m_RecvData), sizeof(RecvData), 0, (sockaddr*)&m_ServerAdd, &len);
+		m_IsUpdate = true;
 	}
 }

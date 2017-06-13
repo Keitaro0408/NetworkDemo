@@ -45,7 +45,7 @@ public:
 	 * コンストラクタ
 	 */
 	UdpThread(LPCTSTR _ip, int _port);
-	
+
 	/**
 	 * デストラクタ
 	 */
@@ -69,6 +69,16 @@ public:
 		m_GameIsEnd = true;
 	};
 
+	inline bool GetIsUpdate()
+	{
+		return m_IsUpdate;
+	}
+
+	inline void SetIsUpdate(bool _isUpdate)
+	{
+		m_IsUpdate = _isUpdate;
+	}
+
 private:
 	/**
 	 * 送信
@@ -79,11 +89,12 @@ private:
 	 * 受信
 	 */
 	void Recv();
-	
+
 	WSADATA		 m_WsaData;
 	SOCKET		 m_Socket;
 	sockaddr_in  m_ServerAdd;
 	bool		 m_GameIsEnd;
+	bool		 m_IsUpdate; // 座標が更新されたか？
 	std::thread* m_pThread;
 	timeval		 m_TimeOut;
 	fd_set		 m_Fds, m_ReadFds;
