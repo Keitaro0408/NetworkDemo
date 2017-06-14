@@ -45,7 +45,7 @@ private:
 
 	ObjectManager* m_pObjectManager;
 	UdpThread*	   m_pUdpThread;
-	Lib::Vertex2D* m_pVertex;
+	Lib::Vertex2D* m_pVertex[2];
 	int			   m_TextureIndex;
 
 };

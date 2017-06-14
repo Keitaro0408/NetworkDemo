@@ -32,7 +32,7 @@ public:
 
 	struct RecvData
 	{
-		PlayerData PlayerData;
+		PlayerData PlayerData[2];
 	};
 
 	struct SendData

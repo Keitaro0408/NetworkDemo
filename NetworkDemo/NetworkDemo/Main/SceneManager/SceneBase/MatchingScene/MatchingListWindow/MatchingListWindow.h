@@ -9,6 +9,7 @@
 #include <string>
 #include <thread>
 #include <winsock2.h>
+#include "../../../GameDataManager/GameDataManager.h"
 
 class MatchingListWindow
 {
@@ -32,15 +33,15 @@ private:
 		bool IsJoin;
 	};
 
-	PLAYER_DATA  m_PlayerData;
-
-	WSADATA		 m_WsaData;
-	SOCKET		 m_Socket;
-	sockaddr_in  m_ServerAdd;
-	bool		 m_GameIsEnd;
-	std::thread* m_pThread;
-	timeval		 m_TimeOut;
-	fd_set		 m_Fds, m_ReadFds;
+	PLAYER_DATA					  m_PlayerData; //<! 自分のデータ
+	PLAYER_DATA					  m_PlayerDataList[4]; //!< 参加している人のデータ
+	WSADATA						  m_WsaData;
+	SOCKET						  m_Socket;
+	sockaddr_in					  m_ServerAdd;
+	bool						  m_GameIsEnd;
+	std::thread*				  m_pThread;
+	timeval						  m_TimeOut;
+	fd_set						  m_Fds, m_ReadFds;
 
 };
 
