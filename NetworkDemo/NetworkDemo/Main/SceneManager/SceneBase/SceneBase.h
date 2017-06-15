@@ -20,6 +20,7 @@ public:
 		SCENE_LOGO,			//!< ロゴシーンID
 		SCENE_OPENING,		//!< オープニングシーンID
 		SCENE_TITLE,		//!< タイトルシーンID
+		SCENE_WAIT,
 		SCENE_GAME,			//!< ゲームシーンID
 		SCENE_CONTINUE_GAME,//!< 続きからゲームを始めるときのシーンID
 		SCENE_RESULT,		//!< リザルトシーンID

@@ -67,9 +67,6 @@
     <ClCompile Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.cpp">
       <Filter>Main\SceneManager\SceneBase\GameScene\UdpThread</Filter>
     </ClCompile>
-    <ClCompile Include="Main\SceneManager\SceneBase\MatchingScene\MatchingScene.cpp">
-      <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
-    </ClCompile>
     <ClCompile Include="Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow\MatchingListWindow.cpp">
       <Filter>Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow</Filter>
     </ClCompile>
@@ -78,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectManager.cpp">
       <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\MatchingScene\WaitScene.cpp">
+      <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +102,6 @@
     <ClInclude Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.h">
       <Filter>Main\SceneManager\SceneBase\GameScene\UdpThread</Filter>
     </ClInclude>
-    <ClInclude Include="Main\SceneManager\SceneBase\MatchingScene\MatchingScene.h">
-      <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
-    </ClInclude>
     <ClInclude Include="Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow\MatchingListWindow.h">
       <Filter>Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow</Filter>
     </ClInclude>
@@ -113,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectManager.h">
       <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\MatchingScene\WaitScene.h">
+      <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
