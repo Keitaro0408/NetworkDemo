@@ -6,6 +6,7 @@
 #include "SceneFactory.h"
 #include "..\SceneBase\GameScene\GameScene.h"
 #include "..\SceneBase\TitleScene\TitleScene.h"
+#include "../SceneBase/WaitScene/WaitScene.h"
 #include <Windows.h>
 
 
@@ -34,6 +35,9 @@ SceneBase* SceneFactory::CreateScene(SceneBase::SceneID _sceneID)
 		break;
 	case SceneBase::SCENE_TITLE:
 		pScene = new TitleScene();
+		break;
+	case SceneBase::SCENE_WAIT:
+		pScene = new WaitScene();
 		break;
 	case SceneBase::SCENE_GAME:
 		pScene = new GameScene();

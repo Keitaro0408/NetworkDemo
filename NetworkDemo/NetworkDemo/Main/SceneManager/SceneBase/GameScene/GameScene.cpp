@@ -22,9 +22,9 @@ namespace
 GameScene::GameScene() :
 SceneBase(SCENE_GAME)
 {
-	m_pUdpThread = new UdpThread("49.250.217.198", 50000);
+	//m_pUdpThread = new UdpThread("49.250.217.198", 50000);
 	//m_pUdpThread = new UdpThread("192.168.12.48", 12345);
-	//m_pUdpThread = new UdpThread("192.168.12.46", 50000);
+	m_pUdpThread = new UdpThread("192.168.12.47", 50000);
 	g_Pos[0] = D3DXVECTOR2(100, 100);
 	g_Pos[1] = D3DXVECTOR2(100, 100);
 

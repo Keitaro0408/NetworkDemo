@@ -15,7 +15,7 @@ public:
 	{
 		SINGLETON_INSTANCE(Lib::Window).DispWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TEXT("NetworkDemo"));
 		InitLib(SINGLETON_INSTANCE(Lib::Window).GetWindowHandle());
-		m_pSceneManager = new SceneManager(SINGLETON_INSTANCE(Lib::Window).GetWindowHandle());
+		m_pSceneManager = new SceneManager();
 	};
 
 	void Release()

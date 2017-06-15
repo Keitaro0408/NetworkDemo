@@ -81,8 +81,7 @@
     <ClCompile Include="Main\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Main\XInput\XInput.cpp" />
     <ClCompile Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.cpp" />
-    <ClCompile Include="Main\SceneManager\SceneBase\MatchingScene\WaitScene.cpp" />
-    <ClCompile Include="Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow\MatchingListWindow.cpp" />
+    <ClCompile Include="Main\SceneManager\SceneBase\WaitScene\WaitScene.cpp" />
     <ClCompile Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,8 +93,7 @@
     <ClInclude Include="Main\SceneManager\SceneManager.h" />
     <ClInclude Include="Main\XInput\XInput.h" />
     <ClInclude Include="Main\SceneManager\SceneBase\GameScene\UdpThread\UdpThread.h" />
-    <ClInclude Include="Main\SceneManager\SceneBase\MatchingScene\WaitScene.h" />
-    <ClInclude Include="Main\SceneManager\SceneBase\MatchingScene\MatchingListWindow\MatchingListWindow.h" />
+    <ClInclude Include="Main\SceneManager\SceneBase\WaitScene\WaitScene.h" />
     <ClInclude Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

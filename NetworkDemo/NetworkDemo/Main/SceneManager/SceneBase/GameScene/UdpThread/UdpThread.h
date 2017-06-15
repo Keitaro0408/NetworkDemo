@@ -6,8 +6,8 @@
 #ifndef UDPTHREAD_H
 #define UDPTHREAD_H
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-#include <thread>
 #include <winsock2.h>
+#include <thread>
 #include <vector>
 #include <DxInput\KeyBoard\KeyDevice.h>
 

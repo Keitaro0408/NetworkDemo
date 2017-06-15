@@ -9,11 +9,10 @@
 #include "DebugTool/DebugTimer.h"
 
 
-SceneManager::SceneManager(HWND _hwnd) :
+SceneManager::SceneManager() :
 m_pScene(NULL),
 m_State(SCENE_CREATE),
-m_NextSceneID(SceneBase::SCENE_TITLE),
-m_hWnd(_hwnd),
+m_NextSceneID(SceneBase::SCENE_WAIT),
 m_IsGameEnd(false)
 {
 }

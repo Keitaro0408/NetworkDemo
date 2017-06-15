@@ -94,7 +94,7 @@ void UdpThread::MainLoop()
 void UdpThread::Send()
 {
 	memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
-	m_SendData.PlayerId = 0;
+	m_SendData.PlayerId = 1;
 	sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 }
 

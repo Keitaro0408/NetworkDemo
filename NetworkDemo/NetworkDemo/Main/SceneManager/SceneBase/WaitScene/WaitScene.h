@@ -1,9 +1,8 @@
 #ifndef MATCHINGSCENE_H
 #define MATCHINGSCENE_H
 #include "../SceneBase.h"
-#include <string>
 #include <thread>
-#include <winsock2.h>
+#include <string>
 
 
 class WaitScene : public SceneBase
@@ -24,7 +23,7 @@ private:
 	struct SendData
 	{
 		bool IsOk;
-		bool IsJoin;
+		bool IsMapLoad;
 	};
 
 	WSADATA						  m_WsaData;
@@ -34,7 +33,7 @@ private:
 	std::thread*				  m_pThread;
 	timeval						  m_TimeOut;
 	fd_set						  m_Fds, m_ReadFds;
-
+	SendData					  m_SendData;
 
 };
 

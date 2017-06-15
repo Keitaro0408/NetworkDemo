@@ -5,7 +5,6 @@
  */
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
-#include <Windows.h>
 #include "SceneBase\SceneBase.h"
 
 /**
@@ -18,7 +17,7 @@ public:
 	 * コンストラクタ
 	 * @param[in] _hwnd ゲームを動作させるウィンドウのハンドル
 	 */
-	SceneManager(HWND _hwnd);
+	SceneManager();
 	
 	/**
 	 * デストラクタ

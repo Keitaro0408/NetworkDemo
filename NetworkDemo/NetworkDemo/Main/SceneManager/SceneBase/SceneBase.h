@@ -5,6 +5,8 @@
  */
 #ifndef SCENEBASE_H
 #define SCENEBASE_H
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#include <winsock2.h>
 
 /**
  * シーンの基底クラス
