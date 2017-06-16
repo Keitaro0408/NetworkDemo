@@ -25,13 +25,17 @@ m_IsWaitEnd(false)
 
 	m_ServerAdd.sin_family = AF_INET;
 	m_ServerAdd.sin_port = htons(PORT);
-	m_ServerAdd.sin_addr.s_addr = inet_addr(IPADD);
-	//m_ServerAdd.sin_addr.s_addr = inet_addr("49.250.217.198");
+	m_ServerAdd.sin_addr.s_addr = INADDR_ANY;
+	bind(m_Socket, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 
+	m_ServerAdd.sin_addr.s_addr = inet_addr(IPADD);
 	m_SendData.IsMapLoad = false;
 	m_SendData.IsOk = false;
 	m_RecvData.IsStart = false;
 	m_RecvData.Id = 0;
+	SINGLETON_INSTANCE(Lib::KeyDevice).Update();
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_RETURN);
+
 	m_pWaitThread = new std::thread(&WaitScene::WaitThread, this);
 }
 
@@ -50,11 +54,9 @@ WaitScene::~WaitScene()
 
 void WaitScene::WaitThread()
 {
+	sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 	while (!m_IsWaitEnd)
 	{
-		memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
-		sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
-
 		memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
 		int selectResult = select(m_Socket + 1, &m_Fds, NULL, NULL, &m_TimeOut);
 		if (FD_ISSET(m_Socket, &m_Fds))
@@ -62,6 +64,7 @@ void WaitScene::WaitThread()
 			int len = (int)sizeof(sockaddr_in);
 			recvfrom(m_Socket, reinterpret_cast<char*>(&m_RecvData), sizeof(RecvData), 0, (sockaddr*)&m_ServerAdd, &len);
 			SINGLETON_INSTANCE(GameDataManager).SetId(m_RecvData.Id);
+			OutputDebugString("recv\n");
 			if (m_RecvData.IsStart)
 			{
 				m_IsWaitEnd = true;
@@ -74,11 +77,13 @@ WaitScene::SceneID WaitScene::Update()
 {
 	SINGLETON_INSTANCE(Lib::KeyDevice).Update();
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_RETURN);
-
+	
 	if (SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_RETURN] == Lib::KEY_PUSH)
 	{
 		m_SendData.IsOk = true;
+		sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 	}
+
 
 	if (m_IsWaitEnd)
 	{

@@ -6,7 +6,7 @@
 #ifndef GAMEDATAMANAGER_H
 #define GAMEDATAMANAGER_H
 
-#define IPADD "127.0.0.1"
+#define IPADD "192.168.12.47"
 #define PORT 50000
 
 
