@@ -6,6 +6,7 @@
 #include "UdpThread.h"
 #include "DxInput\KeyBoard\KeyDevice.h"
 #include <mutex>
+#include "../../../GameDataManager/GameDataManager.h"
 
 namespace
 {
@@ -94,7 +95,7 @@ void UdpThread::MainLoop()
 void UdpThread::Send()
 {
 	memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
-	m_SendData.PlayerId = 1;
+	m_SendData.PlayerId = SINGLETON_INSTANCE(GameDataManager).GetId();
 	sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 }
 

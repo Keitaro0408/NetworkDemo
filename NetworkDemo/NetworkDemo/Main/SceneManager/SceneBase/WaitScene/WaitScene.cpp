@@ -1,9 +1,10 @@
 #include "WaitScene.h"
-
+#include "../../GameDataManager/GameDataManager.h"
+#include "DxInput\KeyBoard\KeyDevice.h"
 
 WaitScene::WaitScene() :
 SceneBase(SCENE_WAIT),
-m_GameIsEnd(false)
+m_IsWaitEnd(false)
 {
 	if (WSAStartup(MAKEWORD(2, 0), &m_WsaData) != 0)
 	{
@@ -29,44 +30,61 @@ m_GameIsEnd(false)
 
 	m_SendData.IsMapLoad = false;
 	m_SendData.IsOk = false;
-
-	m_pThread = new std::thread(&WaitScene::MainLoop, this);
+	m_RecvData.IsStart = false;
+	m_RecvData.Id = 0;
+	m_pWaitThread = new std::thread(&WaitScene::WaitThread, this);
 }
 
 
 WaitScene::~WaitScene()
 {
-	m_GameIsEnd = true;
-	m_pThread->join();
-	delete m_pThread;
-	m_pThread = NULL;
+	m_IsWaitEnd = true;
+	m_pWaitThread->join();
+	delete m_pWaitThread;
+	m_pWaitThread = NULL;
 
 	shutdown(m_Socket, SD_BOTH);
 	closesocket(m_Socket);
 	WSACleanup();
 }
 
-void WaitScene::MainLoop()
+void WaitScene::WaitThread()
 {
-	while (!m_GameIsEnd)
+	while (!m_IsWaitEnd)
 	{
 		memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
 		sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
-		
+
 		memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
 		int selectResult = select(m_Socket + 1, &m_Fds, NULL, NULL, &m_TimeOut);
 		if (FD_ISSET(m_Socket, &m_Fds))
 		{
-			/* sock1からデータを受信して表示します */
-			int32_t test = 5;
 			int len = (int)sizeof(sockaddr_in);
-			recvfrom(m_Socket, reinterpret_cast<char*>(&test), sizeof(int32_t), 0, (sockaddr*)&m_ServerAdd, &len);
+			recvfrom(m_Socket, reinterpret_cast<char*>(&m_RecvData), sizeof(RecvData), 0, (sockaddr*)&m_ServerAdd, &len);
+			SINGLETON_INSTANCE(GameDataManager).SetId(m_RecvData.Id);
+			if (m_RecvData.IsStart)
+			{
+				m_IsWaitEnd = true;
+			}
 		}
 	}
 }
 
 WaitScene::SceneID WaitScene::Update()
 {
+	SINGLETON_INSTANCE(Lib::KeyDevice).Update();
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_RETURN);
+
+	if (SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_RETURN] == Lib::KEY_PUSH)
+	{
+		m_SendData.IsOk = true;
+	}
+
+	if (m_IsWaitEnd)
+	{
+		m_SceneID = SceneBase::SCENE_GAME;
+	}
+
 	return m_SceneID;
 }
 

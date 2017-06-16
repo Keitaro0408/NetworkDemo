@@ -14,7 +14,7 @@ public:
 	/**
 	 * ÉÅÉCÉìêßå‰
 	 */
-	void MainLoop();
+	void WaitThread();
 
 	SceneID Update() override;
 	void Draw() override;
@@ -26,14 +26,21 @@ private:
 		bool IsMapLoad;
 	};
 
+	struct RecvData
+	{
+		int32_t Id;
+		bool IsStart;
+	};
+
 	WSADATA						  m_WsaData;
 	SOCKET						  m_Socket;
 	sockaddr_in					  m_ServerAdd;
-	bool						  m_GameIsEnd;
-	std::thread*				  m_pThread;
+	bool						  m_IsWaitEnd;
+	std::thread*				  m_pWaitThread;
 	timeval						  m_TimeOut;
 	fd_set						  m_Fds, m_ReadFds;
 	SendData					  m_SendData;
+	RecvData					  m_RecvData;
 
 };
 

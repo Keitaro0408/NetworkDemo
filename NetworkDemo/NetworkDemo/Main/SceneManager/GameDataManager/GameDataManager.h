@@ -7,15 +7,13 @@
 #define GAMEDATAMANAGER_H
 #include <string>
 #include <thread>
+#include "Singleton.h"
 
 
 class GameDataManager
 {
+	friend Lib::Singleton<GameDataManager>;
 public:
-
-	GameDataManager();
-	~GameDataManager();
-
 	inline void SetId(int32_t _id)
 	{
 		m_Id = _id;
@@ -27,6 +25,8 @@ public:
 	}
 
 private:
+	GameDataManager();
+	~GameDataManager();
 	int32_t m_Id;
 
 };
