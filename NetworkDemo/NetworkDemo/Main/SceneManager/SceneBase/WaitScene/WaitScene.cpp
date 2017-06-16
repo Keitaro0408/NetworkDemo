@@ -24,8 +24,8 @@ m_IsWaitEnd(false)
 	m_TimeOut.tv_usec = 0;
 
 	m_ServerAdd.sin_family = AF_INET;
-	m_ServerAdd.sin_port = htons(50000);
-	m_ServerAdd.sin_addr.s_addr = inet_addr("192.168.12.47");
+	m_ServerAdd.sin_port = htons(PORT);
+	m_ServerAdd.sin_addr.s_addr = inet_addr(IPADD);
 	//m_ServerAdd.sin_addr.s_addr = inet_addr("49.250.217.198");
 
 	m_SendData.IsMapLoad = false;
