@@ -3,6 +3,7 @@
 #include "../SceneBase.h"
 #include <thread>
 #include <string>
+#include <vector>
 
 
 class WaitScene : public SceneBase
@@ -22,12 +23,14 @@ public:
 private:
 	struct SendData
 	{
+		int32_t Id;
 		bool IsOk;
 		bool IsMapLoad;
 	};
 
 	struct RecvData
 	{
+		int32_t PlayerNum; //!< ƒvƒŒƒCƒ„[‚Ì”
 		int32_t Id;
 		bool IsStart;
 	};

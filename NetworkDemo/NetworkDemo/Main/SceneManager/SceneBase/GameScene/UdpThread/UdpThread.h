@@ -30,10 +30,6 @@ public:
 		float	RectX, RectY;
 	};
 
-	struct RecvData
-	{
-		PlayerData PlayerData[2];
-	};
 
 	struct SendData
 	{
@@ -56,9 +52,9 @@ public:
 	 */
 	void MainLoop();
 
-	inline RecvData GetRecvData()
+	inline PlayerData* GetRecvData()
 	{
-		return m_RecvData;
+		return m_pPlayerData;
 	}
 
 	/**
@@ -100,7 +96,7 @@ private:
 	fd_set		 m_Fds, m_ReadFds;
 
 	SendData	 m_SendData;
-	RecvData	 m_RecvData;
+	PlayerData*  m_pPlayerData;
 
 };
 

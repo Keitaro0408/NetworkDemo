@@ -31,6 +31,17 @@ m_IsUpdate(false)
 
 	FD_SET(m_Socket, &m_ReadFds);
 
+	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
+	m_pPlayerData = new PlayerData[playerNum];
+	for (int i = 0; i < playerNum;i++)
+	{
+		m_pPlayerData->Id = 0;
+		m_pPlayerData->PosX = 0.f;
+		m_pPlayerData->PosY = 0.f;
+		m_pPlayerData->RectX = 0.f;
+		m_pPlayerData->RectY = 0.f;
+	}
+
 	m_TimeOut.tv_sec = 2;
 	m_TimeOut.tv_usec = 0;
 
@@ -39,7 +50,6 @@ m_IsUpdate(false)
 	m_ServerAdd.sin_addr.s_addr = inet_addr(_ip);
 
 	m_pThread = new std::thread(&UdpThread::MainLoop,this);
-	memset(&m_RecvData, 0, sizeof(m_RecvData));
 	memset(&m_SendData, 0, sizeof(m_SendData));
 }
 
@@ -50,6 +60,8 @@ UdpThread::~UdpThread()
 	m_pThread->join();
 	delete m_pThread;
 	m_pThread = NULL;
+
+	delete[] m_pPlayerData;
 
 	shutdown(m_Socket, SD_BOTH);
 	closesocket(m_Socket);
@@ -73,7 +85,6 @@ void UdpThread::MainLoop()
 		SyncNow = timeGetTime();
 		if (SyncNow - SyncOld >= 1000 / 60) //	1秒間に60回この中に入る
 		{
-
 			m_SendData.KeyCommand[KEY_UP]	 = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_W];
 			m_SendData.KeyCommand[KEY_LEFT]  = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_A];
 			m_SendData.KeyCommand[KEY_RIGHT] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_D];
@@ -105,11 +116,12 @@ void UdpThread::Recv()
 
 	int len = (int)sizeof(sockaddr_in);
 	int selectResult = select(m_Socket + 1, &m_Fds, NULL, NULL, &m_TimeOut);
+	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
 
 	if (FD_ISSET(m_Socket, &m_Fds)) 
 	{
 		/* sock1からデータを受信して表示します */
-		recvfrom(m_Socket, reinterpret_cast<char*>(&m_RecvData), sizeof(RecvData), 0, (sockaddr*)&m_ServerAdd, &len);
+		recvfrom(m_Socket, reinterpret_cast<char*>(m_pPlayerData), sizeof(PlayerData)*playerNum, 0, (sockaddr*)&m_ServerAdd, &len);
 		m_IsUpdate = true;
 	}
 }

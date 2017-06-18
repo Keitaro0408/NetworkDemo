@@ -29,10 +29,22 @@ public:
 		return m_Id;
 	}
 
+	inline void SetPlayerNum(int32_t _id)
+	{
+		m_PlayerNum = _id;
+	}
+
+	inline int GetPlayerNum()
+	{
+		return m_PlayerNum;
+	}
+
+
 private:
 	GameDataManager();
 	~GameDataManager();
 	int32_t m_Id;
+	int		m_PlayerNum;
 
 };
 
