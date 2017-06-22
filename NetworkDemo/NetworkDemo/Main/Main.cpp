@@ -8,13 +8,12 @@
 class App : Lib::ApplicationBase
 {
 public:
-	App() = default;
+	App() :
+		ApplicationBase("NetworkDemo", 1280, 720){};
 	~App() = default;
 
 	void Init()
 	{
-		SINGLETON_INSTANCE(Lib::Window).DispWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TEXT("NetworkDemo"));
-		InitLib(SINGLETON_INSTANCE(Lib::Window).GetWindowHandle());
 		m_pSceneManager = new SceneManager();
 	};
 
@@ -22,7 +21,6 @@ public:
 	{
 		delete m_pSceneManager;
 		m_pSceneManager = NULL;
-		ReleaseLib();
 	};
 
 	bool MainLoop()

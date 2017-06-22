@@ -41,6 +41,15 @@
     <Filter Include="Main\SceneManager\SceneBase\GameScene\ObjectManager">
       <UniqueIdentifier>{dc980c3f-22f8-405b-bc88-9229a1cb15b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase">
+      <UniqueIdentifier>{ea281dfa-4416-4571-a777-8e6ecaa27b1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Map">
+      <UniqueIdentifier>{d5761837-4c27-41f8-8530-53538816f0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Player">
+      <UniqueIdentifier>{b07c3f86-af12-431b-84e2-576ba166e977}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main\Main.cpp">
@@ -76,6 +85,15 @@
     <ClCompile Include="Main\SceneManager\SceneBase\WaitScene\WaitScene.cpp">
       <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
     </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\ObjectBase.cpp">
+      <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Map\Map.cpp">
+      <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Player\Player.cpp">
+      <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main\SceneManager\SceneManager.h">
@@ -107,6 +125,15 @@
     </ClInclude>
     <ClInclude Include="Main\SceneManager\SceneBase\WaitScene\WaitScene.h">
       <Filter>Main\SceneManager\SceneBase\MatchingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\ObjectBase.h">
+      <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Map\Map.h">
+      <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Player\Player.h">
+      <Filter>Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

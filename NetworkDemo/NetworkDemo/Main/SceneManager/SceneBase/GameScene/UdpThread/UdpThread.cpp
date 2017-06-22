@@ -13,44 +13,10 @@ namespace
 	std::mutex g_Mutex;
 };
 
-UdpThread::UdpThread(LPCTSTR _ip, int _port) :
+UdpThread::UdpThread() :
 m_GameIsEnd(false),
 m_IsUpdate(false)
 {
-	if (WSAStartup(MAKEWORD(2, 0), &m_WsaData) != 0)
-	{
-		OutputDebugString("WSAStartupに失敗しました。");
-	}  
-
-	m_Socket = socket(AF_INET,SOCK_DGRAM,0);
-	if (m_Socket == INVALID_SOCKET)
-	{
-		WSACleanup();
-		OutputDebugString("ソケットの生成に失敗しました。");
-	}
-
-	FD_SET(m_Socket, &m_ReadFds);
-
-	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
-	m_pPlayerData = new PlayerData[playerNum];
-	for (int i = 0; i < playerNum;i++)
-	{
-		m_pPlayerData->Id = 0;
-		m_pPlayerData->PosX = 0.f;
-		m_pPlayerData->PosY = 0.f;
-		m_pPlayerData->RectX = 0.f;
-		m_pPlayerData->RectY = 0.f;
-	}
-
-	m_TimeOut.tv_sec = 2;
-	m_TimeOut.tv_usec = 0;
-
-	m_ServerAdd.sin_family = AF_INET;
-	m_ServerAdd.sin_port = htons(_port);
-	m_ServerAdd.sin_addr.s_addr = inet_addr(_ip);
-
-	m_pThread = new std::thread(&UdpThread::MainLoop,this);
-	memset(&m_SendData, 0, sizeof(m_SendData));
 }
 
 
@@ -72,6 +38,44 @@ UdpThread::~UdpThread()
 //----------------------------------------------------------------------------------------------------
 // Public Functions
 //----------------------------------------------------------------------------------------------------
+
+void UdpThread::Init(LPCTSTR _ip, int _port)
+{
+	if (WSAStartup(MAKEWORD(2, 0), &m_WsaData) != 0)
+	{
+		OutputDebugString("WSAStartupに失敗しました。");
+	}
+
+	m_Socket = socket(AF_INET, SOCK_DGRAM, 0);
+	if (m_Socket == INVALID_SOCKET)
+	{
+		WSACleanup();
+		OutputDebugString("ソケットの生成に失敗しました。");
+	}
+
+	FD_SET(m_Socket, &m_ReadFds);
+
+	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
+	m_pPlayerData = new PlayerData[playerNum];
+	for (int i = 0; i < playerNum; i++)
+	{
+		m_pPlayerData->Id = 0;
+		m_pPlayerData->PosX = 0.f;
+		m_pPlayerData->PosY = 0.f;
+		m_pPlayerData->IsRight = true;
+	}
+
+	m_TimeOut.tv_sec = 2;
+	m_TimeOut.tv_usec = 0;
+
+	m_ServerAdd.sin_family = AF_INET;
+	m_ServerAdd.sin_port = htons(_port);
+	m_ServerAdd.sin_addr.s_addr = inet_addr(_ip);
+
+	m_pThread = new std::thread(&UdpThread::MainLoop, this);
+	memset(&m_SendData, 0, sizeof(m_SendData));
+
+}
 
 void UdpThread::MainLoop()
 {

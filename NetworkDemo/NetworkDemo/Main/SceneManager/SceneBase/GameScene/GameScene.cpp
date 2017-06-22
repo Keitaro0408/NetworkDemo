@@ -13,6 +13,7 @@
 #include "DxInput/DXInputDevice.h"
 #include "../../../XInput/XInput.h"
 #include "../../GameDataManager/GameDataManager.h"
+#include "ObjectManager/ObjectManager.h"
 
 namespace
 {
@@ -24,7 +25,8 @@ GameScene::GameScene() :
 SceneBase(SCENE_GAME)
 {
 	//m_pUdpThread = new UdpThread("49.250.217.198", 50000);
-	m_pUdpThread = new UdpThread(IPADD, PORT);
+	SINGLETON_CREATE(UdpThread);
+	SINGLETON_INSTANCE(UdpThread).Init(IPADD, PORT);
 	//m_pUdpThread = new UdpThread("192.168.12.47", 50000);
 	SINGLETON_INSTANCE(Lib::TextureManager).Load("Resource/test.jpg", &m_TextureIndex);
 	
@@ -39,6 +41,8 @@ SceneBase(SCENE_GAME)
 
 	g_UV[3].x = 1.f;
 	g_UV[3].y = 1.f;
+
+	m_pObjectManager = new ObjectManager();
 
 	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
 	for (int i = 0; i < playerNum; i++)
@@ -63,9 +67,11 @@ GameScene::~GameScene()
 		m_pVertex[i] = NULL;
 	}
 
+	delete m_pObjectManager;
+	
 	SINGLETON_INSTANCE(Lib::TextureManager).ReleaseTexture(m_TextureIndex);
-	delete m_pUdpThread;
-	m_pUdpThread = NULL;
+
+	SINGLETON_DELETE(UdpThread);
 }
 
 
@@ -80,16 +86,7 @@ SceneBase::SceneID GameScene::Update()
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_A);
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_S);
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_D);
-	
-	if (m_pUdpThread->GetIsUpdate())
-	{
-		for (int i = 0; i < SINGLETON_INSTANCE(GameDataManager).GetPlayerNum(); i++)
-		{
-			g_Pos[i].x = m_pUdpThread->GetRecvData()[i].PosX;
-			g_Pos[i].y = m_pUdpThread->GetRecvData()[i].PosY;
-		}
-		m_pUdpThread->SetIsUpdate(false);
-	}
+	m_pObjectManager->Update();
 
 	SINGLETON_INSTANCE(Lib::XInput).Update(Lib::GAMEPAD1);
 	return m_SceneID;
@@ -99,13 +96,6 @@ void GameScene::Draw()
 {
 	SINGLETON_INSTANCE(Lib::DX11Manager).SetDepthStencilTest(false);
 	SINGLETON_INSTANCE(Lib::DX11Manager).BeginScene();
-	for (int i = 0; i < SINGLETON_INSTANCE(GameDataManager).GetPlayerNum(); i++)
-	{
-		if (i == 2)
-		{
-			int idsad = 0;
-		}
-		m_pVertex[i]->Draw(&D3DXVECTOR2(g_Pos[i].x + 100, g_Pos[i].y + 100), g_UV);
-	}
+	m_pObjectManager->Draw();
 	SINGLETON_INSTANCE(Lib::DX11Manager).EndScene();
 }

@@ -6,7 +6,8 @@
 #ifndef GAMEDATAMANAGER_H
 #define GAMEDATAMANAGER_H
 
-#define IPADD "192.168.12.47"
+#define IPADD "192.168.12.46"
+//#define IPADD "192.168.12.48"
 #define PORT 50000
 
 
@@ -39,11 +40,22 @@ public:
 		return m_PlayerNum;
 	}
 
+	inline void SetPort(u_short _port)
+	{
+		m_Port = _port;
+	}
+
+	inline int GetPort()
+	{
+		return m_Port;
+	}
+
 
 private:
 	GameDataManager();
 	~GameDataManager();
 	int32_t m_Id;
+	u_short	m_Port;
 	int		m_PlayerNum;
 
 };

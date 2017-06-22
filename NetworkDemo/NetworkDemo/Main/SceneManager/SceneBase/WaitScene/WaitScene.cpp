@@ -23,10 +23,7 @@ m_IsWaitEnd(false)
 		OutputDebugString("ソケットの生成に失敗しました。");
 	}
 
-	//const int on = 1;
-	//setsockopt(m_Socket, SOL_SOCKET, SO_REUSEADDR, (const char*)&on, sizeof(on));
-
-	for (int i = 0; i < 10;i++)
+	for (int i = 0; i < 20;i++)
 	{
 		m_ServerAdd.sin_port = htons(PORT + i);
 		int r = bind(m_Socket, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
@@ -36,6 +33,7 @@ m_IsWaitEnd(false)
 		}
 		else
 		{
+			SINGLETON_INSTANCE(GameDataManager).SetPort(PORT + i);
 			break;
 		}
 	}

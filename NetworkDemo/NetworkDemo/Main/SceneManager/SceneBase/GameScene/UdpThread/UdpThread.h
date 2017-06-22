@@ -10,9 +10,11 @@
 #include <thread>
 #include <vector>
 #include <DxInput\KeyBoard\KeyDevice.h>
+#include "Singleton.h"
 
 class UdpThread
 {
+	friend Lib::Singleton<UdpThread>;
 public:
 	enum KEY_COMMAND
 	{
@@ -27,7 +29,7 @@ public:
 	{
 		int32_t	Id;
 		float	PosX, PosY;
-		float	RectX, RectY;
+		bool	IsRight;
 	};
 
 
@@ -37,15 +39,8 @@ public:
 		Lib::KEYSTATE KeyCommand[KEY_MAX];
 	};
 
-	/**
-	 * コンストラクタ
-	 */
-	UdpThread(LPCTSTR _ip, int _port);
 
-	/**
-	 * デストラクタ
-	 */
-	~UdpThread();
+	void Init(LPCTSTR _ip, int _port);
 
 	/**
 	 * メイン制御
@@ -76,6 +71,16 @@ public:
 	}
 
 private:
+	/**
+	* コンストラクタ
+	*/
+	UdpThread();
+
+	/**
+	* デストラクタ
+	*/
+	~UdpThread();
+
 	/**
 	 * 送信
 	 */

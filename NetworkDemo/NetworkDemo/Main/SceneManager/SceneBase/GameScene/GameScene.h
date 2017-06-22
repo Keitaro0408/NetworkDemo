@@ -45,7 +45,6 @@ private:
 	void operator=(const GameScene&);
 
 	ObjectManager* m_pObjectManager;
-	UdpThread*	   m_pUdpThread;
 	std::vector<Lib::Vertex2D*> m_pVertex;
 	int			   m_TextureIndex;
 
