@@ -15,7 +15,10 @@ public:
 	~Player();
 
 	void Update() override;
+
 	void Draw() override;
+
+	void IconDraw();
 
 	inline void SetPlayerData(const UdpThread::PlayerData& _playerData)
 	{
@@ -25,8 +28,10 @@ public:
 private:
 	void InvertUv(D3DXVECTOR2* _uv);
 
-	ObjectBase::Vertex m_Vertex;
-	int				   m_TextureIndex;
+	ObjectBase::Vertex    m_Vertex;
+	ObjectBase::Vertex    m_PlayerIcon;
+	int				      m_TextureIndex;
+	int					  m_IconTextureIndex;
 	UdpThread::PlayerData m_PlayerData;
 
 };

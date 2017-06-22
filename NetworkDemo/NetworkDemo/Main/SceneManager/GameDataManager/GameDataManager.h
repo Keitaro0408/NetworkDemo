@@ -6,8 +6,8 @@
 #ifndef GAMEDATAMANAGER_H
 #define GAMEDATAMANAGER_H
 
-#define IPADD "192.168.12.46"
-//#define IPADD "192.168.12.48"
+//#define IPADD "192.168.12.46"
+#define IPADD "192.168.12.48"
 #define PORT 50000
 
 

@@ -18,6 +18,18 @@ m_TextureIndex(_textureIndex)
 		"Wait",
 		&m_Vertex);
 
+	InitVertex(
+		D3DXVECTOR2(0, 0),
+		D3DXVECTOR2(32, 32),
+		"Resource/PlayerIcon.anim",
+		"Normal",
+		&m_PlayerIcon);
+
+	SINGLETON_INSTANCE(Lib::TextureManager).Load("Resource/PlayerIcon.png",&m_IconTextureIndex);
+
+	m_PlayerIcon.pVertex->SetTexture(
+		SINGLETON_INSTANCE(Lib::TextureManager).GetTexture(m_IconTextureIndex));
+
 	m_Vertex.pVertex->SetTexture(
 		SINGLETON_INSTANCE(Lib::TextureManager).GetTexture(m_TextureIndex));
 	m_Vertex.pUvController->SetAnimFrame(20);
@@ -26,6 +38,8 @@ m_TextureIndex(_textureIndex)
 
 Player::~Player()
 {
+	SINGLETON_INSTANCE(Lib::TextureManager).ReleaseTexture(m_IconTextureIndex);
+	ReleaseVertex(&m_PlayerIcon);
 	ReleaseVertex(&m_Vertex);
 }
 
@@ -49,6 +63,15 @@ void Player::Draw()
 	}
 
 	m_Vertex.pVertex->Draw(&pos, Uv);
+}
+
+void Player::IconDraw()
+{
+	D3DXVECTOR2 pos;
+	pos.x = m_PlayerData.PosX;
+	pos.y = m_PlayerData.PosY - 40.f;
+
+	m_PlayerIcon.pVertex->Draw(&pos, m_PlayerIcon.pUvController->GetUV());
 }
 
 void Player::InvertUv(D3DXVECTOR2* _uv)

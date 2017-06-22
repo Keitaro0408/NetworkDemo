@@ -68,9 +68,17 @@ void ObjectManager::Draw()
 	{
 		m_pObjectBase[i]->Draw();
 	}
+
+	int playerId = SINGLETON_INSTANCE(GameDataManager).GetId();
+
 	for (unsigned int i = 0; i < m_pPlayer.size(); i++)
 	{
-		//m_pPlayer[i]->SetPos();
-		m_pPlayer[i]->Draw();
+		if (i != playerId - 1)
+		{
+			m_pPlayer[i]->Draw();
+		}
 	}
+	m_pPlayer[playerId - 1]->IconDraw();
+	m_pPlayer[playerId - 1]->Draw();
+
 }
