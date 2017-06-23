@@ -21,13 +21,20 @@ public:
 		KEY_LEFT,
 		KEY_UP,
 		KEY_RIGHT,
-		KEY_DOWN,
+		KEY_FIRE,
 		KEY_MAX
+	};
+
+	struct BulletData
+	{
+		float	PosX, PosY;
+		bool	IsRight,IsEnable;
 	};
 
 	struct PlayerData
 	{
 		int32_t	Id;
+		BulletData bulletData[3];
 		float	PosX, PosY;
 		bool	IsRight;
 	};

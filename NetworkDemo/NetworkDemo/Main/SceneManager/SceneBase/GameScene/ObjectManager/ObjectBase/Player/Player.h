@@ -26,12 +26,15 @@ public:
 	}
 
 private:
+	void BulletDraw();
 	void InvertUv(D3DXVECTOR2* _uv);
 
 	ObjectBase::Vertex    m_Vertex;
+	ObjectBase::Vertex    m_BulletVertex;
 	ObjectBase::Vertex    m_PlayerIcon;
 	int				      m_TextureIndex;
 	int					  m_IconTextureIndex;
+	int					  m_BulletTextureIndex;
 	UdpThread::PlayerData m_PlayerData;
 
 };

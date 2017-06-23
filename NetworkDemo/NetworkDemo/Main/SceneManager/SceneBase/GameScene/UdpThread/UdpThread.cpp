@@ -59,10 +59,17 @@ void UdpThread::Init(LPCTSTR _ip, int _port)
 	m_pPlayerData = new PlayerData[playerNum];
 	for (int i = 0; i < playerNum; i++)
 	{
-		m_pPlayerData->Id = 0;
-		m_pPlayerData->PosX = 0.f;
-		m_pPlayerData->PosY = 0.f;
-		m_pPlayerData->IsRight = true;
+		m_pPlayerData[i].Id = 0;
+		m_pPlayerData[i].PosX = 0.f;
+		m_pPlayerData[i].PosY = 0.f;
+		m_pPlayerData[i].IsRight = true;
+		for (int j = 0; j < 3; j++)
+		{
+			m_pPlayerData[i].bulletData[j].IsEnable = false;
+			m_pPlayerData[i].bulletData[j].IsRight= false;
+			m_pPlayerData[i].bulletData[j].PosX= 0.f;
+			m_pPlayerData[i].bulletData[j].PosY = 0.f;
+		}
 	}
 
 	m_TimeOut.tv_sec = 2;
@@ -92,7 +99,7 @@ void UdpThread::MainLoop()
 			m_SendData.KeyCommand[KEY_UP]	 = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_W];
 			m_SendData.KeyCommand[KEY_LEFT]  = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_A];
 			m_SendData.KeyCommand[KEY_RIGHT] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_D];
-			m_SendData.KeyCommand[KEY_DOWN]  = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_S];
+			m_SendData.KeyCommand[KEY_FIRE] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_SPACE];
 
 			Send();
 			Recv();

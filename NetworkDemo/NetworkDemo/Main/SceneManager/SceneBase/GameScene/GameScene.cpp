@@ -84,8 +84,8 @@ SceneBase::SceneID GameScene::Update()
 	SINGLETON_INSTANCE(Lib::KeyDevice).Update();
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_W);
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_A);
-	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_S);
 	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_D);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_SPACE);
 	m_pObjectManager->Update();
 
 	SINGLETON_INSTANCE(Lib::XInput).Update(Lib::GAMEPAD1);
