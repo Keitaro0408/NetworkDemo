@@ -42,7 +42,7 @@ m_IsWaitEnd(false)
 	FD_ZERO(&m_ReadFds);
 	FD_SET(m_Socket, &m_ReadFds);
 
-	m_ServerAdd.sin_addr.s_addr = inet_addr(IPADD);
+	m_ServerAdd.sin_addr.s_addr = inet_addr(SINGLETON_INSTANCE(GameDataManager).GetIp());
 	m_ServerAdd.sin_port = htons(PORT);
 	m_SendData.IsMapLoad = false;
 	m_SendData.IsOk = false;

@@ -6,8 +6,9 @@
 #ifndef GAMEDATAMANAGER_H
 #define GAMEDATAMANAGER_H
 
-#define IPADD "192.168.12.46"
+//#define IPADD "192.168.12.46"
 //#define IPADD "192.168.12.48"
+//#define IPADD "49.250.217.198"
 #define PORT 50000
 
 
@@ -20,12 +21,12 @@ class GameDataManager
 {
 	friend Lib::Singleton<GameDataManager>;
 public:
-	inline void SetId(int32_t _id)
+	inline void SetId(unsigned char _id)
 	{
 		m_Id = _id;
 	}
 
-	inline int32_t  GetId()
+	inline unsigned char GetId()
 	{
 		return m_Id;
 	}
@@ -50,14 +51,20 @@ public:
 		return m_Port;
 	}
 
+	inline const char* GetIp()
+	{
+		return m_Ip;
+	}
+
 
 private:
 	GameDataManager();
 	~GameDataManager();
-	int32_t m_Id;
+	unsigned char m_Id;
 	u_short	m_Port;
 	int		m_PlayerNum;
 
+	char    m_Ip[16];
 };
 
 

@@ -26,7 +26,8 @@ SceneBase(SCENE_GAME)
 {
 	//m_pUdpThread = new UdpThread("49.250.217.198", 50000);
 	SINGLETON_CREATE(UdpThread);
-	SINGLETON_INSTANCE(UdpThread).Init(IPADD, PORT);
+
+	SINGLETON_INSTANCE(UdpThread).Init(SINGLETON_INSTANCE(GameDataManager).GetIp(), PORT);
 	//m_pUdpThread = new UdpThread("192.168.12.47", 50000);
 	SINGLETON_INSTANCE(Lib::TextureManager).Load("Resource/test.jpg", &m_TextureIndex);
 	
@@ -82,10 +83,10 @@ GameScene::~GameScene()
 SceneBase::SceneID GameScene::Update()
 {
 	SINGLETON_INSTANCE(Lib::KeyDevice).Update();
-	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_W);
-	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_A);
-	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_D);
-	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_SPACE);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_UPARROW);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_LEFTARROW);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_RIGHTARROW);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_Z);
 	m_pObjectManager->Update();
 
 	SINGLETON_INSTANCE(Lib::XInput).Update(Lib::GAMEPAD1);

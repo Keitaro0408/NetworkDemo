@@ -96,10 +96,10 @@ void UdpThread::MainLoop()
 		SyncNow = timeGetTime();
 		if (SyncNow - SyncOld >= 1000 / 60) //	1秒間に60回この中に入る
 		{
-			m_SendData.KeyCommand[KEY_UP]	 = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_W];
-			m_SendData.KeyCommand[KEY_LEFT]  = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_A];
-			m_SendData.KeyCommand[KEY_RIGHT] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_D];
-			m_SendData.KeyCommand[KEY_FIRE] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_SPACE];
+			m_SendData.KeyCommand[KEY_UP] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_UPARROW];
+			m_SendData.KeyCommand[KEY_LEFT] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_LEFTARROW];
+			m_SendData.KeyCommand[KEY_RIGHT] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_RIGHTARROW];
+			m_SendData.KeyCommand[KEY_FIRE] = SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_Z];
 
 			Send();
 			Recv();
@@ -116,7 +116,6 @@ void UdpThread::MainLoop()
 
 void UdpThread::Send()
 {
-	memcpy(&m_Fds, &m_ReadFds, sizeof(fd_set));
 	m_SendData.PlayerId = SINGLETON_INSTANCE(GameDataManager).GetId();
 	sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 }

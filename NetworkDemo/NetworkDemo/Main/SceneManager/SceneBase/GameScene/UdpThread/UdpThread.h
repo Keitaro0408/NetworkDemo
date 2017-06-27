@@ -33,7 +33,7 @@ public:
 
 	struct PlayerData
 	{
-		int32_t	Id;
+		unsigned char Id;
 		BulletData bulletData[3];
 		float	PosX, PosY;
 		bool	IsRight;
@@ -42,7 +42,7 @@ public:
 
 	struct SendData
 	{
-		int32_t		  PlayerId;
+		unsigned char PlayerId;
 		Lib::KEYSTATE KeyCommand[KEY_MAX];
 	};
 
