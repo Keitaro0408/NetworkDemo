@@ -72,7 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main\SceneManager\GameDataManager\GameDataManager.cpp" />
+    <ClCompile Include="Main\SceneManager\NetworkDataManager\NetworkDataManager.cpp" />
     <ClCompile Include="Main\Main.cpp" />
     <ClCompile Include="Main\SceneManager\SceneBase\GameScene\GameScene.cpp" />
     <ClCompile Include="Main\SceneManager\SceneBase\SceneBase.cpp" />
@@ -88,7 +88,7 @@
     <ClCompile Include="Main\SceneManager\SceneBase\GameScene\ObjectManager\ObjectBase\Player\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Main\SceneManager\GameDataManager\GameDataManager.h" />
+    <ClInclude Include="Main\SceneManager\NetworkDataManager\NetworkDataManager.h" />
     <ClInclude Include="Main\SceneManager\SceneBase\GameScene\GameScene.h" />
     <ClInclude Include="Main\SceneManager\SceneBase\SceneBase.h" />
     <ClInclude Include="Main\SceneManager\SceneBase\TitleScene\TitleScene.h" />

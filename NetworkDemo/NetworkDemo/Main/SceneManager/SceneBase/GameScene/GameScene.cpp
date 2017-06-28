@@ -12,7 +12,7 @@
 #include "Dx11/DX11Manager.h"
 #include "DxInput/DXInputDevice.h"
 #include "../../../XInput/XInput.h"
-#include "../../GameDataManager/GameDataManager.h"
+#include "../../NetworkDataManager/NetworkDataManager.h"
 #include "ObjectManager/ObjectManager.h"
 
 namespace
@@ -27,7 +27,7 @@ SceneBase(SCENE_GAME)
 	//m_pUdpThread = new UdpThread("49.250.217.198", 50000);
 	SINGLETON_CREATE(UdpThread);
 
-	SINGLETON_INSTANCE(UdpThread).Init(SINGLETON_INSTANCE(GameDataManager).GetIp(), PORT);
+	SINGLETON_INSTANCE(UdpThread).Init(SINGLETON_INSTANCE(NetworkDataManager).GetIp(), PORT);
 	//m_pUdpThread = new UdpThread("192.168.12.47", 50000);
 	SINGLETON_INSTANCE(Lib::TextureManager).Load("Resource/test.jpg", &m_TextureIndex);
 	
@@ -45,7 +45,7 @@ SceneBase(SCENE_GAME)
 
 	m_pObjectManager = new ObjectManager();
 
-	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
+	int playerNum = SINGLETON_INSTANCE(NetworkDataManager).GetPlayerNum();
 	for (int i = 0; i < playerNum; i++)
 	{
 		g_Pos.push_back(D3DXVECTOR2(100, 100));
@@ -61,7 +61,7 @@ SceneBase(SCENE_GAME)
 
 GameScene::~GameScene()
 {
-	for (int i = 0; i < SINGLETON_INSTANCE(GameDataManager).GetPlayerNum(); i++)
+	for (int i = 0; i < SINGLETON_INSTANCE(NetworkDataManager).GetPlayerNum(); i++)
 	{
 		m_pVertex[i]->Release();
 		delete m_pVertex[i];

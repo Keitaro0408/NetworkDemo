@@ -1,6 +1,6 @@
 ﻿/**
- * @file   GameDataManager.h
- * @brief  GameDataManagerクラスのヘッダファイル
+ * @file   NetworkDataManager.h
+ * @brief  NetworkDataManagerクラスのヘッダファイル
  * @author kotani
  */
 #ifndef GAMEDATAMANAGER_H
@@ -17,9 +17,9 @@
 #include "Singleton.h"
 
 
-class GameDataManager
+class NetworkDataManager
 {
-	friend Lib::Singleton<GameDataManager>;
+	friend Lib::Singleton<NetworkDataManager>;
 public:
 	inline void SetId(unsigned char _id)
 	{
@@ -56,10 +56,9 @@ public:
 		return m_Ip;
 	}
 
-
 private:
-	GameDataManager();
-	~GameDataManager();
+	NetworkDataManager();
+	~NetworkDataManager();
 	unsigned char m_Id;
 	u_short	m_Port;
 	int		m_PlayerNum;

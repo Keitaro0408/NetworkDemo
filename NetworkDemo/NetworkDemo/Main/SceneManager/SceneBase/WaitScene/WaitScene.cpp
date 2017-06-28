@@ -1,5 +1,5 @@
 #include "WaitScene.h"
-#include "../../GameDataManager/GameDataManager.h"
+#include "../../NetworkDataManager/NetworkDataManager.h"
 #include "DxInput\KeyBoard\KeyDevice.h"
 
 WaitScene::WaitScene() :
@@ -33,7 +33,7 @@ m_IsWaitEnd(false)
 		}
 		else
 		{
-			SINGLETON_INSTANCE(GameDataManager).SetPort(PORT + i);
+			SINGLETON_INSTANCE(NetworkDataManager).SetPort(PORT + i);
 			break;
 		}
 	}
@@ -42,7 +42,7 @@ m_IsWaitEnd(false)
 	FD_ZERO(&m_ReadFds);
 	FD_SET(m_Socket, &m_ReadFds);
 
-	m_ServerAdd.sin_addr.s_addr = inet_addr(SINGLETON_INSTANCE(GameDataManager).GetIp());
+	m_ServerAdd.sin_addr.s_addr = inet_addr(SINGLETON_INSTANCE(NetworkDataManager).GetIp());
 	m_ServerAdd.sin_port = htons(PORT);
 	m_SendData.IsMapLoad = false;
 	m_SendData.IsOk = false;
@@ -84,8 +84,8 @@ void WaitScene::WaitThread()
 		if (FD_ISSET(m_Socket, &m_Fds))
 		{
 			recvfrom(m_Socket, reinterpret_cast<char*>(&m_RecvData), sizeof(RecvData), 0, (sockaddr*)&m_ServerAdd, &len);
-			SINGLETON_INSTANCE(GameDataManager).SetId(m_RecvData.Id);
-			SINGLETON_INSTANCE(GameDataManager).SetPlayerNum(m_RecvData.PlayerNum);
+			SINGLETON_INSTANCE(NetworkDataManager).SetId(m_RecvData.Id);
+			SINGLETON_INSTANCE(NetworkDataManager).SetPlayerNum(m_RecvData.PlayerNum);
 			OutputDebugString("recv\n");
 			if (m_RecvData.IsStart)
 			{
@@ -102,7 +102,7 @@ WaitScene::SceneID WaitScene::Update()
 	
 	if (SINGLETON_INSTANCE(Lib::KeyDevice).GetKeyState()[DIK_RETURN] == Lib::KEY_PUSH)
 	{
-		m_SendData.Id = SINGLETON_INSTANCE(GameDataManager).GetId();
+		m_SendData.Id = SINGLETON_INSTANCE(NetworkDataManager).GetId();
 		m_SendData.IsOk = true;
 		sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 	}

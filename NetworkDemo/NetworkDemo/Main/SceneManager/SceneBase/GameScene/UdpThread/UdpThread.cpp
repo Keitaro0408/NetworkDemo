@@ -6,7 +6,7 @@
 #include "UdpThread.h"
 #include "DxInput\KeyBoard\KeyDevice.h"
 #include <mutex>
-#include "../../../GameDataManager/GameDataManager.h"
+#include "../../../NetworkDataManager/NetworkDataManager.h"
 
 namespace
 {
@@ -55,7 +55,7 @@ void UdpThread::Init(LPCTSTR _ip, int _port)
 
 	FD_SET(m_Socket, &m_ReadFds);
 
-	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
+	int playerNum = SINGLETON_INSTANCE(NetworkDataManager).GetPlayerNum();
 	m_pPlayerData = new PlayerData[playerNum];
 	for (int i = 0; i < playerNum; i++)
 	{
@@ -116,7 +116,7 @@ void UdpThread::MainLoop()
 
 void UdpThread::Send()
 {
-	m_SendData.PlayerId = SINGLETON_INSTANCE(GameDataManager).GetId();
+	m_SendData.PlayerId = SINGLETON_INSTANCE(NetworkDataManager).GetId();
 	sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 }
 
@@ -126,7 +126,7 @@ void UdpThread::Recv()
 
 	int len = (int)sizeof(sockaddr_in);
 	int selectResult = select(m_Socket + 1, &m_Fds, NULL, NULL, &m_TimeOut);
-	int playerNum = SINGLETON_INSTANCE(GameDataManager).GetPlayerNum();
+	int playerNum = SINGLETON_INSTANCE(NetworkDataManager).GetPlayerNum();
 
 	if (FD_ISSET(m_Socket, &m_Fds)) 
 	{
