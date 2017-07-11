@@ -24,7 +24,11 @@ namespace
 GameScene::GameScene() :
 SceneBase(SCENE_GAME)
 {
-	//m_pUdpThread = new UdpThread("49.250.217.198", 50000);
+	SINGLETON_INSTANCE(Lib::KeyDevice).Update();
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_UPARROW);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_LEFTARROW);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_RIGHTARROW);
+	SINGLETON_INSTANCE(Lib::KeyDevice).KeyCheck(DIK_Z);
 	SINGLETON_CREATE(UdpThread);
 
 	SINGLETON_INSTANCE(UdpThread).Init(SINGLETON_INSTANCE(NetworkDataManager).GetIp(), PORT);
