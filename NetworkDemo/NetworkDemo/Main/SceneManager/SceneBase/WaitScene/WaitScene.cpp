@@ -15,7 +15,7 @@ m_IsWaitEnd(false)
 
 	m_ServerAdd.sin_family = AF_INET;
 	m_ServerAdd.sin_port = htons(PORT);
-	m_ServerAdd.sin_addr.s_addr = INADDR_ANY;
+	m_ServerAdd.sin_addr.s_addr = inet_addr(SINGLETON_INSTANCE(NetworkDataManager).GetIp());
 	m_Socket = socket(AF_INET, SOCK_DGRAM, 0);
 	if (m_Socket == INVALID_SOCKET)
 	{
@@ -23,27 +23,11 @@ m_IsWaitEnd(false)
 		OutputDebugString("ソケットの生成に失敗しました。");
 	}
 
-	for (int i = 0; i < 20;i++)
-	{
-		m_ServerAdd.sin_port = htons(PORT + i);
-		int r = bind(m_Socket, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
-		if (r == -1)
-		{
-				OutputDebugString("bindに失敗\n。");
-		}
-		else
-		{
-			SINGLETON_INSTANCE(NetworkDataManager).SetPort(PORT + i);
-			break;
-		}
-	}
 
 
 	FD_ZERO(&m_ReadFds);
 	FD_SET(m_Socket, &m_ReadFds);
 
-	m_ServerAdd.sin_addr.s_addr = inet_addr(SINGLETON_INSTANCE(NetworkDataManager).GetIp());
-	m_ServerAdd.sin_port = htons(PORT);
 	m_SendData.IsMapLoad = false;
 	m_SendData.IsOk = false;
 	m_SendData.Id = 0;

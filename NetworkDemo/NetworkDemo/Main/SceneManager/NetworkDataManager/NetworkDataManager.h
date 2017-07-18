@@ -11,7 +11,6 @@
 //#define IPADD "49.250.217.198"
 #define PORT 50000
 
-
 #include <string>
 #include <thread>
 #include "Singleton.h"

@@ -45,8 +45,8 @@ void UdpThread::Init(LPCTSTR _ip, int _port)
 	m_TimeOut.tv_usec = 0;
 
 	m_ServerAdd.sin_family = AF_INET;
-	m_ServerAdd.sin_port = htons(SINGLETON_INSTANCE(NetworkDataManager).GetPort());
-	m_ServerAdd.sin_addr.s_addr = INADDR_ANY;
+	m_ServerAdd.sin_port = htons(PORT);
+	m_ServerAdd.sin_addr.s_addr = inet_addr(_ip);
 
 	if (WSAStartup(MAKEWORD(2, 0), &m_WsaData) != 0)
 	{
@@ -59,15 +59,6 @@ void UdpThread::Init(LPCTSTR _ip, int _port)
 		WSACleanup();
 		OutputDebugString("ソケットの生成に失敗しました。");
 	}
-
-	int r = bind(m_Socket, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
-	if (r == -1)
-	{
-		OutputDebugString("bindに失敗\n。");
-	}
-
-	m_ServerAdd.sin_addr.s_addr = inet_addr(_ip);
-	m_ServerAdd.sin_port = htons(PORT);
 
 	FD_SET(m_Socket, &m_ReadFds);
 
@@ -129,9 +120,9 @@ void UdpThread::Send()
 				m_SendData.KeyCommand[KEY_RIGHT] != Lib::KEY_OFF ||
 				m_SendData.KeyCommand[KEY_FIRE] != Lib::KEY_OFF)
 			{
-				m_SendData.PlayerId = SINGLETON_INSTANCE(NetworkDataManager).GetId();
-				sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 			}
+			m_SendData.PlayerId = SINGLETON_INSTANCE(NetworkDataManager).GetId();
+			sendto(m_Socket, reinterpret_cast<char*>(&m_SendData), sizeof(SendData), 0, (struct sockaddr *)&m_ServerAdd, sizeof(m_ServerAdd));
 			SyncOld = SyncNow;
 		}
 	}
@@ -151,6 +142,7 @@ void UdpThread::Recv()
 		{
 			/* sock1からデータを受信して表示します */
 			recvfrom(m_Socket, reinterpret_cast<char*>(m_pPlayerData), sizeof(PlayerData)*playerNum, 0, (sockaddr*)&m_ServerAdd, &len);
+			u_short port = ntohs(m_ServerAdd.sin_port);
 			m_IsUpdate = true;
 		}
 	}
